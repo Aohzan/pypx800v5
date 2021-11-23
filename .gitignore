@@ -1,0 +1,7 @@
+dist/
+build/
+pypx800.egg-info
+__pycache__
+publish
+.vscode/
+test.py
