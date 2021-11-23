@@ -1,6 +1,6 @@
 dist/
 build/
-pypx800.egg-info
+*.egg-info
 __pycache__
 publish
 .vscode/
