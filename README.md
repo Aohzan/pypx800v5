@@ -1,16 +1,13 @@
-# pypx800v5 - Python GCE IPX800 v5
+# pypx800v5 - Python GCE IPX800 V5
 
-Control the IPX800 v5 ans its extensions: X-PWM, X-THL, X-4VR, X-4FP, X-8R, X-8D, X-24D and X-Dimmer trough:
+Control the IPX800 V5 ans its extensions:
 
-- Relay
-- Virtual output
-- Virtual input
-- Digital input
-- Analog input
-- Counter
+- Relay (IPX, X-8R)
+- Digital input (IPX, X-8D, X-24D)
+- Analog input (IPX)
 - X-Dimmer output
 - X-PWM channel
-- X-THL (temp, hum, lux)
+- X-THL (temp, hum, lum)
 - X-4VR output
 - X-4FP zone
 
@@ -19,9 +16,7 @@ Control the IPX800 v5 ans its extensions: X-PWM, X-THL, X-4VR, X-4FP, X-8R, X-8D
 - host: ip or hostname (mandatory)
 - port: (default: `80`)
 - api_key: (mandatory)
-- request_retries: number of request retries on error (default: `3`)
-- request_timeout: timeout for request (default: `5`)
-- request_checkstatus: true to raise error if IPX800 return no success result like partial result, after `request_retries` retries (default: `True`)
+- request_timeout: timeout for request in seconds (default: `5`)
 - session: aiohttp.client.ClientSession
 
 ## Example
@@ -29,16 +24,45 @@ Control the IPX800 v5 ans its extensions: X-PWM, X-THL, X-4VR, X-4FP, X-8R, X-8D
 ```python
 import asyncio
 
-from pypx800v5 import (IPX800, X4FP, X4VR, XPWM, XTHL, AInput, VAInput, DInput, Relay,
-                     VInput, VOutput, XDimmer)
+from pypx800v5 import *
 
 
 async def main():
     async with IPX800(host='192.168.1.123', api_key='xxx') as ipx:
-        config = await ipx.get_config()
+        print("Ping OK" if await ipx.ping() else "Ping KO")
+        await ipx.init_config()
 
-        data = await ipx.global_get()
-        print("all values:", data)
+        relay = IPX800Relay(ipx, 1)
+        print(await relay.status)
+        await relay.on()
+
+        input = IPX800DigitalInput(ipx, 2)
+        print(await input.status)
+
+        input = IPX800AnalogInput(ipx, 1)
+        print(await input.status)
+
+        light = X8R(ipx, 1, 7)
+        print(await light.status)
+        await light.on()
+
+        pwm = XPWM(ipx, 1, 6)
+        print(await pwm.status)
+        print(await pwm.level)
+        await pwm.set_level(90)
+
+        light = XDimmer(ipx, 1, 2)
+        print(await light.status)
+        print(await light.level)
+        await light.on()
+
+        input = X24D(ipx, 1, 14)
+        print(await input.status)
+
+        capteur = XTHL(ipx, 1)
+        print(await capteur.temperature)
+        print(await capteur.humidity)
+        print(await capteur.luminosity)
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()

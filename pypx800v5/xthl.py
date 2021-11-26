@@ -5,31 +5,31 @@ from .ipx800 import IPX800
 API_PATH = "ebx/xthl"
 EXT_TYPE = "xthl"
 
-KEY_TEMP = "anaTemp"
-KEY_HUM = "anaHum"
-KEY_LUM = "anaLum"
-
 
 class XTHL(Extension):
     """Representing an X-THL extension."""
 
     def __init__(self, ipx: IPX800, ext_number: int):
         super().__init__(ipx, EXT_TYPE, ext_number)
+        self._api_path = f"{API_PATH}/{self._ext_id}"
+        self.temp_key = "anaTemp"
+        self.hum_key = "anaHum"
+        self.lum_key = "anaLum"
 
     @property
-    async def temp(self) -> float:
+    async def temperature(self) -> float:
         """Get temperature of the X-THL."""
-        response = await self._ipx._request_api(API_PATH)
-        return response[self._ext_number - 1][KEY_TEMP]
+        response = await self._ipx._request_api(self._api_path)
+        return response[self.temp_key]
 
     @property
-    async def hum(self) -> float:
+    async def humidity(self) -> float:
         """Get humidity level of the X-THL."""
-        response = await self._ipx._request_api(API_PATH)
-        return response[self._ext_number - 1][KEY_HUM]
+        response = await self._ipx._request_api(self._api_path)
+        return response[self.hum_key]
 
     @property
-    async def lum(self) -> int:
+    async def luminosity(self) -> int:
         """Get luminosity level of the X-THL."""
-        response = await self._ipx._request_api(API_PATH)
-        return response[self._ext_number - 1][KEY_LUM]
+        response = await self._ipx._request_api(self._api_path)
+        return response[self.lum_key]
