@@ -42,9 +42,9 @@ class IPX800DigitalInput(Extension):
 class IPX800AnalogInput(Extension):
     def __init__(self, ipx: IPX800, input_number: int):
         super().__init__(ipx, IPX, 0, input_number)
-        self.io_state_id = ipx.get_input_id(IPX, 0, TYPE_ANA, input_number)
+        self.ana_state_id = ipx.get_input_id(IPX, 0, TYPE_ANA, input_number)
 
     @property
     async def status(self) -> bool:
         """Return the current IPX800 analog input status."""
-        return await self._ipx.get_ana(self.io_state_id)
+        return await self._ipx.get_ana(self.ana_state_id)
