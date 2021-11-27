@@ -15,6 +15,10 @@ class XTHL(Extension):
         self.temp_key = "anaTemp"
         self.hum_key = "anaHum"
         self.lum_key = "anaLum"
+        ids = ipx.get_xthl_ids(ext_number)
+        self.temp_state_id = ids[0]
+        self.hum_state_id = ids[1]
+        self.lum_state_id = ids[2]
 
     @property
     async def temperature(self) -> float:
