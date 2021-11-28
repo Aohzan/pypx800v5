@@ -11,6 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+      - name: Create Python virtual environment
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          pip install -U "pip<20.3" setuptools
+          pip install -r requirements.txt
       - uses: psf/black@stable
         with:
           black_args: "pypx800v5 --check"
