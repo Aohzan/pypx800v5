@@ -1,5 +1,4 @@
 """IPX800V5 Base Object."""
-from pypx800v5.const import API_CONFIG_ID
 
 from .ipx800 import IPX800
 
@@ -10,4 +9,4 @@ class Object:
         self._obj_type = obj_type
         self._obj_number = obj_number
         self._config = ipx.get_obj_config(obj_type, obj_number)
-        self._obj_id = self._config[API_CONFIG_ID]
+        self._obj_id = ipx.get_obj_id(obj_type, obj_number)

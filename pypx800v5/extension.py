@@ -1,5 +1,4 @@
 """IPX800V5 Base Extension."""
-from pypx800v5.const import API_CONFIG_ID
 
 from .ipx800 import IPX800
 

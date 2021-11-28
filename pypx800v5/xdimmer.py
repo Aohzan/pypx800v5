@@ -1,12 +1,13 @@
 """IPX800V5 X-Dimmer."""
-from .const import DEFAULT_TRANSITION, EXT_XDIMMER, TYPE_ANA, TYPE_IO
+from .const import DEFAULT_TRANSITION
+from .const import EXT_XDIMMER as ext_type
 from .extension import Extension
 from .ipx800 import IPX800
 
 
 class XDimmer(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
-        super().__init__(ipx, EXT_XDIMMER, ext_number, output_number)
+        super().__init__(ipx, ext_type, ext_number, output_number)
         self.io_state_id = self._config["ioOn_id"][output_number - 1]
         self.io_command_id = self._config["ioOn_id"][output_number - 1]
         self.ana_state_id = self._config["anaPosition_id"][output_number - 1]

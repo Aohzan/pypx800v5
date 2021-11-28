@@ -1,12 +1,12 @@
 """IPX800V5 Thermostat."""
-from .const import OBJECT_THERMOSTAT
+from .const import OBJECT_THERMOSTAT as obj_type
 from .ipx800 import IPX800
 from .object import Object
 
 
 class Thermostat(Object):
     def __init__(self, ipx: IPX800, obj_number: int):
-        super().__init__(ipx, OBJECT_THERMOSTAT, obj_number)
+        super().__init__(ipx, obj_type, obj_number)
         self.io_state_id = self._config["ioOutput_id"]
         self.io_eco_id = self._config["ioEco_id"]
         self.io_comfort_id = self._config["ioComfort_id"]

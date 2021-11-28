@@ -1,12 +1,12 @@
 """IPX800V5 X-4VR."""
-from .const import DEFAULT_TRANSITION, EXT_X4VR, TYPE_ANA, TYPE_IO
+from .const import EXT_X4VR as ext_type
 from .extension import Extension
 from .ipx800 import IPX800
 
 
 class X4VR(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
-        super().__init__(ipx, EXT_X4VR, ext_number, output_number)
+        super().__init__(ipx, ext_type, ext_number, output_number)
         self._mode = self._config["mode"]
 
         self.ana_position_id = self._config["anaPosition_id"][output_number - 1]

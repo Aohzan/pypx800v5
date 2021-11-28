@@ -1,13 +1,9 @@
 """IPX800V5 control."""
-from .const import IPX, TYPE_ANA, TYPE_IO
-from .extension import Extension
 from .ipx800 import IPX800
 
 
-class IPX800IO():
-    def __init__(
-        self, ipx: IPX800, io_number: int = None
-    ):
+class IPX800IO:
+    def __init__(self, ipx: IPX800, io_number: int = None):
         self._ipx = ipx
         self._config = ipx.ipx_config
         self._io_number = io_number

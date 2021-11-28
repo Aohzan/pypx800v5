@@ -3,9 +3,9 @@
 from .const import *
 from .counter import Counter
 from .exceptions import (
-    Ipx800CannotConnectError,
-    Ipx800InvalidAuthError,
-    Ipx800RequestError,
+    IPX800CannotConnectError,
+    IPX800InvalidAuthError,
+    IPX800RequestError,
 )
 from .ipx800 import IPX800
 from .ipx800_io import IPX800AnalogInput, IPX800DigitalInput, IPX800Relay
@@ -21,9 +21,9 @@ from .xthl import XTHL
 
 __all__ = [
     "Counter",
-    "Ipx800CannotConnectError",
-    "Ipx800InvalidAuthError",
-    "Ipx800RequestError",
+    "IPX800CannotConnectError",
+    "IPX800InvalidAuthError",
+    "IPX800RequestError",
     "IPX800",
     "IPX800AnalogInput",
     "IPX800DigitalInput",

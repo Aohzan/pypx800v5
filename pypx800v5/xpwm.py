@@ -1,5 +1,6 @@
 """IPX800V5 X-PWM."""
-from .const import DEFAULT_TRANSITION, EXT_XPWM, TYPE_ANA, TYPE_IO
+from .const import DEFAULT_TRANSITION
+from .const import EXT_XPWM as ext_type
 from .extension import Extension
 from .ipx800 import IPX800
 
@@ -9,7 +10,7 @@ VALUE_OFF = 0
 
 class XPWM(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
-        super().__init__(ipx, EXT_XPWM, ext_number, output_number)
+        super().__init__(ipx, ext_type, ext_number, output_number)
         self.ana_state_id = self._config["anaCommand_id"][output_number - 1]
         self.ana_command_id = self._config["anaCommand_id"][output_number - 1]
 

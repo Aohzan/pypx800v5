@@ -1,7 +1,7 @@
 """IPX800V5 X-4FP."""
 from enum import Enum
 
-from .const import EXT_X4FP
+from .const import EXT_X4FP as ext_type
 from .extension import Extension
 from .ipx800 import IPX800
 
@@ -17,7 +17,7 @@ class X4FPMode(Enum):
 
 class X4FP(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
-        super().__init__(ipx, EXT_X4FP, ext_number, output_number)
+        super().__init__(ipx, ext_type, ext_number, output_number)
         self.io_comfort_id = self._config["ioComfort_id"][output_number - 1]
         self.io_eco_id = self._config["ioEco_id"][output_number - 1]
         self.io_anti_freeze_id = self._config["ioAntiFreeze_id"][output_number - 1]
@@ -28,14 +28,14 @@ class X4FP(Extension):
     async def mode(self, states: dict = None) -> X4FPMode:
         """Return the current mode enabled, you can pass current states if you have them, otherwyse it will request it."""
         if states is None:
-            states = await self._ipx.get_ext_states(EXT_X4FP, self._ext_id)
+            states = await self._ipx.get_ext_states(ext_type, self._ext_id)
         for mode in X4FPMode:
-            if states[f"io{mode.value}"][self._io_number - 1] == "on": # type: ignore
+            if states[f"io{mode.value}"][self._io_number - 1] == "on":  # type: ignore
                 return mode
-        return None # type: ignore
+        return None  # type: ignore
 
     async def set_mode(self, mode: X4FPMode) -> None:
         """Set comfort mode."""
         await self._ipx.update_io(
-            self._config[f"io{mode.value}_id"][self._io_number - 1], True # type: ignore
+            self._config[f"io{mode.value}_id"][self._io_number - 1], True  # type: ignore
         )

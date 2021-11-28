@@ -1,18 +1,12 @@
 """IPX800V5 X-8R."""
-from .const import TYPE_IO
+from .const import EXT_X8R as ext_type
 from .extension import Extension
 from .ipx800 import IPX800
-
-API_PATH = "ebx/x8r"
-EXT_TYPE = "x8r"
-
-KEY_STATUS_ONOFF = "ioOutputState"
-KEY_SET_ONOFF = "ioOutput"
 
 
 class X8R(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
-        super().__init__(ipx, EXT_TYPE, ext_number, output_number)
+        super().__init__(ipx, ext_type, ext_number, output_number)
         self.io_state_id = self._config["ioOutputState_id"][output_number - 1]
         self.io_command_id = self._config["ioOutput_id"][output_number - 1]
 

@@ -1,15 +1,17 @@
 # pypx800v5 - Python GCE IPX800 V5
 
-Control the IPX800 V5 ans its extensions:
+Control the IPX800 V5, its extensions and objects:
 
-- Relay (IPX, X-8R)
-- Digital input (IPX, X-8D, X-24D)
-- Analog input (IPX)
-- X-Dimmer output
-- X-PWM channel
-- X-THL (temp, hum, lum)
-- X-4VR output
-- X-4FP zone
+- Thermostat
+- Counter
+- X-8R
+- X-8D
+- X-24D
+- X-Dimmer
+- X-PWM
+- X-THL
+- X-4VR
+- X-4FP
 
 ## IPX800 parameters
 

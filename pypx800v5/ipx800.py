@@ -1,16 +1,15 @@
 """Get information and control a GCE IPX800v5."""
 import asyncio
 import socket
-from typing import Dict, List
 
 import aiohttp
 import async_timeout
 
 from .const import *
 from .exceptions import (
-    Ipx800CannotConnectError,
-    Ipx800InvalidAuthError,
-    Ipx800RequestError,
+    IPX800CannotConnectError,
+    IPX800InvalidAuthError,
+    IPX800RequestError,
 )
 
 
@@ -33,9 +32,9 @@ class IPX800:
         self._base_api_url = f"http://{host}:{port}/api/"
 
         self._api_version = ""
-        self._ipx_config = {} # type: dict
-        self._extensions_config = [] # type: list
-        self._objects_config = [] # type: list
+        self._ipx_config = {}  # type: dict
+        self._extensions_config = []  # type: list
+        self._objects_config = []  # type: list
 
         self._session = session
         self._close_session = False
@@ -74,7 +73,7 @@ class IPX800:
 
         try:
             with async_timeout.timeout(self._request_timeout):
-                response = await self._session.request( # type: ignore
+                response = await self._session.request(  # type: ignore
                     method=method,
                     url=self._base_api_url + path,
                     params=params_with_api,
@@ -82,7 +81,7 @@ class IPX800:
                 )
 
             if response.status == 401:
-                raise Ipx800InvalidAuthError()
+                raise IPX800InvalidAuthError()
 
             if response.status >= 200 and response.status <= 206:
                 content = await response.json()
@@ -90,16 +89,16 @@ class IPX800:
                 return content
 
             content = await response.json()
-            raise Ipx800RequestError(
+            raise IPX800RequestError(
                 "IPX800 API request error, error code", response.status
             )
 
         except asyncio.TimeoutError as exception:
-            raise Ipx800CannotConnectError(
+            raise IPX800CannotConnectError(
                 "Timeout occurred while connecting to IPX800."
             ) from exception
         except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise Ipx800CannotConnectError(
+            raise IPX800CannotConnectError(
                 "Error occurred while communicating with the IPX800."
             ) from exception
 
@@ -108,7 +107,7 @@ class IPX800:
         try:
             result = await self._request_api("system/ipx")
             return result.get("errorStatus") == 0
-        except Ipx800CannotConnectError:
+        except IPX800CannotConnectError:
             pass
         return False
 
@@ -157,7 +156,7 @@ class IPX800:
                             API_CONFIG_PARAMS: extension,
                         }
                     )
-            except Ipx800RequestError:
+            except IPX800RequestError:
                 print("Error to get %s extensions" % type_extension)
         self._extensions_config = extensions_config
 
@@ -177,7 +176,7 @@ class IPX800:
                             API_CONFIG_PARAMS: extension,
                         }
                     )
-            except Ipx800RequestError:
+            except IPX800RequestError:
                 print("Error to get %s object" % type_object)
         self._objects_config = objects_config
 
