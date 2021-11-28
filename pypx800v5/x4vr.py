@@ -7,7 +7,7 @@ from .ipx800 import IPX800
 class X4VR(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
         super().__init__(ipx, ext_type, ext_number, output_number)
-        self._mode = self._config["mode"]
+        self._mode = int(self._config["mode"])
 
         self.ana_position_id = self._config["anaPosition_id"][output_number - 1]
         self.ana_command_id = self._config["anaCommand_id"][output_number - 1]
@@ -18,6 +18,11 @@ class X4VR(Extension):
         self.io_command_bso_down_id = self._config["ioCommandBsoDown_id"][
             output_number - 1
         ]
+
+    @property
+    def mode(self) -> int:
+        """Return the current mode."""
+        return self._mode
 
     @property
     async def status(self) -> bool:
@@ -41,9 +46,9 @@ class X4VR(Extension):
         """Stop cover."""
         await self._ipx.update_io(self.io_command_stop_id, True)
 
-    async def set_level(self, level: int) -> None:
+    async def set_position(self, position: int) -> None:
         """Set cover level."""
-        await self._ipx.update_ana(self.ana_command_id, 100 - level)
+        await self._ipx.update_ana(self.ana_command_id, 100 - position)
 
     async def open_bso(self) -> None:
         """Set cover impulse down."""
