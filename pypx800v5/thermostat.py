@@ -7,14 +7,18 @@ from .object import Object
 class Thermostat(Object):
     def __init__(self, ipx: IPX800, obj_number: int):
         super().__init__(ipx, obj_type, obj_number)
+        # IO
         self.io_state_id = self._config["ioOutput_id"]
+        self.io_fault_id = self._config["ioFault_id"]
+        self.io_onoff_id = self._config["ioOnOff_id"]
+        # Ana
+        self.ana_measure_id = self._config["anaMeasure_id"]
+        self.ana_consigne_id = self._config["anaCurrSetPoint_id"]
+        # Modes
         self.io_eco_id = self._config["ioEco_id"]
         self.io_comfort_id = self._config["ioComfort_id"]
         self.io_nofrost_id = self._config["ioNoFrost_id"]
-        self.io_fault_id = self._config["ioFault_id"]
-        self.io_onoff_id = self._config["ioOnOff_id"]
-        self.ana_measure_id = self._config["anaMeasure_id"]
-        self.ana_consigne_id = self._config["anaCurrSetPoint_id"]
+
         self._hysteresis = self._config["hysteresis"]
 
     @property
@@ -57,6 +61,18 @@ class Thermostat(Object):
         """Return if eco mode is activated."""
         return await self._ipx.get_io(self.io_nofrost_id)
 
+    async def set_mode_eco(self) -> None:
+        """Activate the eco mode."""
+        await self._ipx.update_io(self.io_eco_id, True)
+
+    async def set_mode_comfort(self) -> None:
+        """Activate the comfort mode."""
+        await self._ipx.update_io(self.io_comfort_id, True)
+
+    async def set_mode_nofrost(self) -> None:
+        """Activate the no frost mode."""
+        await self._ipx.update_io(self.io_nofrost_id, True)
+
     async def set_target_temperature(self, temperature: float) -> None:
         """Set target temperature."""
         await self._ipx.update_ana(self.ana_consigne_id, temperature)
@@ -64,6 +80,14 @@ class Thermostat(Object):
     async def force_heating(self, heat: bool = True) -> None:
         """Set target temperature."""
         await self._ipx.update_io(self.io_onoff_id, heat)
+
+    async def on(self) -> None:
+        """Turn on the thermostat."""
+        await self._ipx.update_io(self.io_onoff_id, True)
+
+    async def off(self) -> None:
+        """Turn off the thermostat."""
+        await self._ipx.update_io(self.io_onoff_id, False)
 
     async def update_params(
         self,

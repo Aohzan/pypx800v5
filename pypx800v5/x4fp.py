@@ -25,10 +25,9 @@ class X4FP(Extension):
         self.io_comfort_1_id = self._config["ioComfort_1_id"][output_number - 1]
         self.io_comfort_2_id = self._config["ioComfort_2_id"][output_number - 1]
 
-    async def mode(self, states: dict = None) -> X4FPMode:
+    async def mode(self) -> X4FPMode:
         """Return the current mode enabled, you can pass current states if you have them, otherwyse it will request it."""
-        if states is None:
-            states = await self._ipx.get_ext_states(ext_type, self._ext_id)
+        states = await self._ipx.get_ext_states(ext_type, self._ext_id)
         for mode in X4FPMode:
             if states[f"io{mode.value}"][self._io_number - 1] == "on":  # type: ignore
                 return mode
@@ -37,5 +36,6 @@ class X4FP(Extension):
     async def set_mode(self, mode: X4FPMode) -> None:
         """Set comfort mode."""
         await self._ipx.update_io(
-            self._config[f"io{mode.value}_id"][self._io_number - 1], True  # type: ignore
+            self._config[f"io{mode.value}_id"][self._io_number - 1],  # type: ignore
+            True,
         )

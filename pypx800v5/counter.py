@@ -9,12 +9,20 @@ class Counter(Object):
         super().__init__(ipx, obj_type, obj_number)
         self.ana_state_id = self._config["anaOut_id"]
         self.ana_command_id = self._config["anaSetValue_id"]
+        self.ana_step_id = self._config["anaPulseValue_id"]
+        self.io_step_id = self._config["ioSet_id"]
 
     @property
-    async def value(self) -> int:
-        """Return the current counter value."""
-        return int(await self._ipx.get_ana(self.ana_state_id))
+    async def step(self) -> float:
+        """Return the step configured."""
+        return float(await self._ipx.get_ana(self.ana_step_id))
 
-    async def set_value(self, value: int) -> None:
+    @property
+    async def value(self) -> float:
+        """Return the current counter value."""
+        return float(await self._ipx.get_ana(self.ana_state_id))
+
+    async def set_value(self, value: float) -> None:
         """Set target temperature."""
         await self._ipx.update_ana(self.ana_command_id, value)
+        await self._ipx.update_io(self.io_step_id, True, "toggle")
