@@ -23,4 +23,3 @@ jobs:
       - uses: jpetrucciani/mypy-check@master
         with:
           path: pypx800v5
-          mypy_flags: "--install-types"

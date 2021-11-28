@@ -1,9 +1,9 @@
 """Get information and control a GCE IPX800v5."""
-import asyncio
-import socket
+from asyncio import TimeoutError
+from socket import gaierror
 
-import aiohttp
-import async_timeout
+from aiohttp import ClientError, ClientSession
+from async_timeout import timeout
 
 from .const import *
 from .exceptions import (
@@ -22,7 +22,7 @@ class IPX800:
         api_key: str,
         port: int = 80,
         request_timeout: int = 5,
-        session: aiohttp.client.ClientSession = None,
+        session: ClientSession = None,
     ) -> None:
         """Init a IPX800 V5 API."""
         self.host = host
@@ -40,7 +40,7 @@ class IPX800:
         self._close_session = False
 
         if self._session is None:
-            self._session = aiohttp.ClientSession()
+            self._session = ClientSession()
             self._close_session = True
 
     @property
@@ -72,7 +72,7 @@ class IPX800:
             params_with_api.update(params)
 
         try:
-            with async_timeout.timeout(self._request_timeout):
+            with timeout(self._request_timeout):
                 response = await self._session.request(  # type: ignore
                     method=method,
                     url=self._base_api_url + path,
@@ -93,11 +93,11 @@ class IPX800:
                 "IPX800 API request error, error code", response.status
             )
 
-        except asyncio.TimeoutError as exception:
+        except TimeoutError as exception:
             raise IPX800CannotConnectError(
                 "Timeout occurred while connecting to IPX800."
             ) from exception
-        except (aiohttp.ClientError, socket.gaierror) as exception:
+        except (ClientError, gaierror) as exception:
             raise IPX800CannotConnectError(
                 "Error occurred while communicating with the IPX800."
             ) from exception
