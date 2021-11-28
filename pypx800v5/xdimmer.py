@@ -7,18 +7,10 @@ from .ipx800 import IPX800
 class XDimmer(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
         super().__init__(ipx, EXT_XDIMMER, ext_number, output_number)
-        self.io_state_id = ipx.get_output_id(
-            EXT_XDIMMER, ext_number, TYPE_IO, output_number
-        )
-        self.io_command_id = ipx.get_command_id(
-            EXT_XDIMMER, ext_number, TYPE_IO, output_number
-        )
-        self.ana_state_id = ipx.get_output_id(
-            EXT_XDIMMER, ext_number, TYPE_ANA, output_number
-        )
-        self.ana_command_id = ipx.get_command_id(
-            EXT_XDIMMER, ext_number, TYPE_ANA, output_number
-        )
+        self.io_state_id = self._config["ioOn_id"][output_number - 1]
+        self.io_command_id = self._config["ioOn_id"][output_number - 1]
+        self.ana_state_id = self._config["anaPosition_id"][output_number - 1]
+        self.ana_command_id = self._config["anaCommand_id"][output_number - 1]
 
     @property
     async def status(self) -> bool:
@@ -28,7 +20,7 @@ class XDimmer(Extension):
     @property
     async def level(self) -> int:
         """Return the current X-Dimmer level."""
-        return await self._ipx.get_ana(self.ana_state_id)
+        return int(await self._ipx.get_ana(self.ana_state_id))
 
     async def on(self, transition: int = DEFAULT_TRANSITION) -> None:
         """Turn on a X-Dimmer."""

@@ -10,12 +10,8 @@ VALUE_OFF = 0
 class XPWM(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
         super().__init__(ipx, EXT_XPWM, ext_number, output_number)
-        self.ana_state_id = ipx.get_output_id(
-            EXT_XPWM, ext_number, TYPE_ANA, output_number
-        )
-        self.ana_command_id = ipx.get_command_id(
-            EXT_XPWM, ext_number, TYPE_ANA, output_number
-        )
+        self.ana_state_id = self._config["anaCommand_id"][output_number - 1]
+        self.ana_command_id = self._config["anaCommand_id"][output_number - 1]
 
     @property
     async def status(self) -> bool:
@@ -25,7 +21,7 @@ class XPWM(Extension):
     @property
     async def level(self) -> int:
         """Return the current X-PWM level."""
-        return await self._ipx.get_ana(self.ana_state_id)
+        return int(await self._ipx.get_ana(self.ana_state_id))
 
     async def on(self, transition: int = DEFAULT_TRANSITION) -> None:
         """Turn on a X-PWM."""

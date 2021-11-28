@@ -4,11 +4,20 @@ from .extension import Extension
 from .ipx800 import IPX800
 
 
-class IPX800Relay(Extension):
+class IPX800IO():
+    def __init__(
+        self, ipx: IPX800, io_number: int = None
+    ):
+        self._ipx = ipx
+        self._config = ipx.ipx_config
+        self._io_number = io_number
+
+
+class IPX800Relay(IPX800IO):
     def __init__(self, ipx: IPX800, output_number: int):
-        super().__init__(ipx, IPX, 0, output_number)
-        self.io_state_id = ipx.get_output_id(IPX, 0, TYPE_IO, output_number)
-        self.io_command_id = ipx.get_command_id(IPX, 0, TYPE_IO, output_number)
+        super().__init__(ipx, output_number)
+        self.io_state_id = self._config["ioRelayState_id"][output_number - 1]
+        self.io_command_id = self._config["ioRelays_id"][output_number - 1]
 
     @property
     async def status(self) -> bool:
@@ -28,10 +37,10 @@ class IPX800Relay(Extension):
         await self._ipx.update_io(self.io_command_id, True, "toggle")
 
 
-class IPX800DigitalInput(Extension):
+class IPX800DigitalInput(IPX800IO):
     def __init__(self, ipx: IPX800, input_number: int):
-        super().__init__(ipx, IPX, 0, input_number)
-        self.io_state_id = ipx.get_input_id(IPX, 0, TYPE_IO, input_number)
+        super().__init__(ipx, input_number)
+        self.io_state_id = self._config["ioDInput_id"][input_number - 1]
 
     @property
     async def status(self) -> bool:
@@ -39,12 +48,12 @@ class IPX800DigitalInput(Extension):
         return await self._ipx.get_io(self.io_state_id)
 
 
-class IPX800AnalogInput(Extension):
+class IPX800AnalogInput(IPX800IO):
     def __init__(self, ipx: IPX800, input_number: int):
-        super().__init__(ipx, IPX, 0, input_number)
-        self.ana_state_id = ipx.get_input_id(IPX, 0, TYPE_ANA, input_number)
+        super().__init__(ipx, input_number)
+        self.ana_state_id = self._config["ana_IPX_Input"][input_number - 1]
 
     @property
-    async def status(self) -> bool:
+    async def status(self) -> float:
         """Return the current IPX800 analog input status."""
         return await self._ipx.get_ana(self.ana_state_id)

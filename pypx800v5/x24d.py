@@ -7,7 +7,7 @@ from .ipx800 import IPX800
 class X24D(Extension):
     def __init__(self, ipx: IPX800, ext_number: int, input_number: int):
         super().__init__(ipx, EXT_X24D, ext_number, input_number)
-        self.io_state_id = ipx.get_input_id(EXT_X24D, ext_number, TYPE_IO, input_number)
+        self.io_state_id = self._config["ioInput_id"][input_number - 1]
 
     @property
     async def status(self) -> bool:

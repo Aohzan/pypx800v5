@@ -15,25 +15,24 @@ class XTHL(Extension):
         self.temp_key = "anaTemp"
         self.hum_key = "anaHum"
         self.lum_key = "anaLum"
-        ids = ipx.get_xthl_ids(ext_number)
-        self.temp_state_id = ids[0]
-        self.hum_state_id = ids[1]
-        self.lum_state_id = ids[2]
+        self.temp_state_id = self._config["anaTemp_id"]
+        self.hum_state_id = self._config["anaHum_id"]
+        self.lum_state_id = self._config["anaLum_id"]
 
     @property
     async def temperature(self) -> float:
         """Get temperature of the X-THL."""
         response = await self._ipx._request_api(self._api_path)
-        return response[self.temp_key]
+        return float(response[self.temp_key])
 
     @property
     async def humidity(self) -> float:
         """Get humidity level of the X-THL."""
         response = await self._ipx._request_api(self._api_path)
-        return response[self.hum_key]
+        return float(response[self.hum_key])
 
     @property
     async def luminosity(self) -> int:
         """Get luminosity level of the X-THL."""
         response = await self._ipx._request_api(self._api_path)
-        return response[self.lum_key]
+        return int(response[self.lum_key])
