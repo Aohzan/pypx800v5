@@ -62,17 +62,17 @@ class IPX800:
             self._close_session = True
 
     @property
-    def api_version(self) -> str:
+    def api_version(self):
         """Return the API version."""
         return self._api_version
 
     @property
-    def firmware_version(self) -> str:
+    def firmware_version(self):
         """Return the firmware version."""
         return self._firmware_version
 
     @property
-    def mac_address(self) -> str:
+    def mac_address(self):
         """Return the MAC Address version."""
         return self._mac_address
 
@@ -80,7 +80,7 @@ class IPX800:
     async def ac_power(self) -> bool:
         """Return if AC Power detected on the X-PSU, None if no X-PSU connected."""
         response = await self._request_api("system/ipx")
-        return response.get(self._io_acpower_id)
+        return response.get(self.io_acpower_id) is True
 
     @property
     def ipx_config(self) -> dict:
@@ -245,8 +245,7 @@ class IPX800:
 
     def get_obj_config(self, obj_type: str, obj_number: int) -> dict:
         """Return the extension config."""
-        extensions = [
-            x for x in self.objects_config if x[API_CONFIG_TYPE] == obj_type]
+        extensions = [x for x in self.objects_config if x[API_CONFIG_TYPE] == obj_type]
         return extensions[obj_number][API_CONFIG_PARAMS]
 
     def get_obj_id(self, obj_type: str, obj_number: int) -> str:
@@ -273,8 +272,7 @@ class IPX800:
     async def update_ana(self, id: int, value) -> None:
         """Update an Analog on the IPX."""
         if type(value) not in [int, float]:
-            raise IPX800RequestError(
-                "Ana value need to be a int or a float type.")
+            raise IPX800RequestError("Ana value need to be a int or a float type.")
         await self._request_api(f"core/ana/{id}", method="PUT", data={"value": value})
 
     # Async defs
