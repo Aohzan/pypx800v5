@@ -4,6 +4,7 @@ Control the IPX800 V5, its extensions and objects:
 
 - Thermostat
 - Counter
+- Tempo
 - X-8R
 - X-8D
 - X-24D
@@ -65,6 +66,11 @@ async def main():
         print(await capteur.temperature)
         print(await capteur.humidity)
         print(await capteur.luminosity)
+
+        tempo = Tempo(ipx, 1)
+        print(tempo.name)
+        print(await tempo.status)
+        print(await tempo.time)
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()

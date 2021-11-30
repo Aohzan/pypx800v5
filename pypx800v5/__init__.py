@@ -9,6 +9,7 @@ from .exceptions import (
 )
 from .ipx800 import IPX800
 from .ipx800_io import IPX800AnalogInput, IPX800DigitalInput, IPX800Relay
+from .tempo import Tempo
 from .thermostat import Thermostat
 from .x4fp import X4FP, X4FPMode
 from .x4vr import X4VR
@@ -28,6 +29,7 @@ __all__ = [
     "IPX800AnalogInput",
     "IPX800DigitalInput",
     "IPX800Relay",
+    "Tempo",
     "Thermostat",
     "X4FP",
     "X4FPMode",

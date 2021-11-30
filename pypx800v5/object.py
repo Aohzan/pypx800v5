@@ -8,5 +8,11 @@ class Object:
         self._ipx = ipx
         self._obj_type = obj_type
         self._obj_number = obj_number
+        self._name = ipx.get_obj_name(obj_type, obj_number)
         self._config = ipx.get_obj_config(obj_type, obj_number)
         self._obj_id = ipx.get_obj_id(obj_type, obj_number)
+
+    @property
+    def name(self) -> str:
+        """Return the name set in the config."""
+        return self._name
