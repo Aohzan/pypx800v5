@@ -283,6 +283,11 @@ class IPX800:
         response = await self._request_api(f"core/ana/{id}")
         return response["value"]
 
+    async def get_str(self, id: int) -> str:
+        """Get an strint value on the IPX."""
+        response = await self._request_api(f"core/str/{id}")
+        return response["value"]
+
     async def update_io(self, id: int, value: bool, command: str = "on") -> None:
         """Update an IO on the IPX."""
         await self._request_api(f"core/io/{id}", method="PUT", data={command: value})
@@ -292,6 +297,23 @@ class IPX800:
         if type(value) not in [int, float]:
             raise IPX800RequestError("Ana value need to be a int or a float type.")
         await self._request_api(f"core/ana/{id}", method="PUT", data={"value": value})
+
+    async def update_str(self, id: int, value: str) -> None:
+        """Update a string on the IPX."""
+        await self._request_api(f"core/str/{id}", method="PUT", data={"value": value})
+
+    # Create resource
+    async def create_object(self, obj_type: str, params: dict, auth_token: str) -> dict:
+        """Create a resource and update configuration from params."""
+        new_object = await self._request_api(
+            f"object/{obj_type}", method="POST", params={"AuthToken": auth_token}
+        )
+        return await self._request_api(
+            f"object/{obj_type}/{new_object['_id']}",
+            method="PUT",
+            params={"AuthToken": auth_token},
+            data=params,
+        )
 
     # Async defs
     async def close(self) -> None:
