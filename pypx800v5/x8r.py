@@ -9,6 +9,7 @@ class X8R(Extension):
         super().__init__(ipx, ext_type, ext_number, output_number)
         self.io_state_id = self._config["ioOutputState_id"][output_number - 1]
         self.io_command_id = self._config["ioOutput_id"][output_number - 1]
+        self.io_longpush_id = self._config["ioLongPush_id"][output_number - 1]
 
     @property
     async def status(self) -> bool:

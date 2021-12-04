@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+- Add X8R long push id
+
 ## 0.7.0
 
 - Add object creation method
