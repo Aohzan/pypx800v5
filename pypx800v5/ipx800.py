@@ -21,7 +21,7 @@ class IPX800:
         host: str,
         api_key: str,
         port: int = 80,
-        request_timeout: int = 5,
+        request_timeout: int = 30,
         session: ClientSession = None,
     ) -> None:
         """Init a IPX800 V5 API."""

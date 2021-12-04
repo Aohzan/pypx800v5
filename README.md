@@ -19,7 +19,7 @@ Control the IPX800 V5, its extensions and objects:
 - host: ip or hostname (mandatory)
 - port: (default: `80`)
 - api_key: (mandatory)
-- request_timeout: timeout for request in seconds (default: `5`)
+- request_timeout: timeout for request in seconds (default: `30`)
 - session: aiohttp.client.ClientSession
 
 ## Example

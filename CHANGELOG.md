@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+- Increase timeout
+
 ## 0.8.0
 
 - Add X8R long push id
