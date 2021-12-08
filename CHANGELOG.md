@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0
+
+- Add request retries
+
 ## 0.9.0
 
 - Increase timeout

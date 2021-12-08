@@ -20,6 +20,8 @@ Control the IPX800 V5, its extensions and objects:
 - port: (default: `80`)
 - api_key: (mandatory)
 - request_timeout: timeout for request in seconds (default: `30`)
+- request_retries_count: retry request if an error occured (default: `3`)
+- request_retries_delay: delay in seconds before trying request (default: `0.1`)
 - session: aiohttp.client.ClientSession
 
 ## Example

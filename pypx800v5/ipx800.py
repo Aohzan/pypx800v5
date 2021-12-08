@@ -1,6 +1,7 @@
 """Get information and control a GCE IPX800v5."""
 from asyncio import TimeoutError
 from socket import gaierror
+from time import sleep
 
 from aiohttp import ClientError, ClientSession
 from async_timeout import timeout
@@ -22,6 +23,8 @@ class IPX800:
         api_key: str,
         port: int = 80,
         request_timeout: int = 30,
+        request_retries_count: int = 3,
+        request_retries_delay: float = 0.1,
         session: ClientSession = None,
     ) -> None:
         """Init a IPX800 V5 API."""
@@ -29,6 +32,8 @@ class IPX800:
         self.port = port
         self._api_key = api_key
         self._request_timeout = request_timeout
+        self._request_retries_count = request_retries_count
+        self._request_retries_delay = request_retries_delay
         self._base_api_url = f"http://{host}:{port}/api/"
 
         self._api_version = None
@@ -106,23 +111,29 @@ class IPX800:
             params_with_api.update(params)
 
         try:
-            with timeout(self._request_timeout):
-                response = await self._session.request(  # type: ignore
-                    method=method,
-                    url=self._base_api_url + path,
-                    params=params_with_api,
-                    json=data,
-                )
+            request_retries = self._request_retries_count
+            content = None
+            while request_retries > 0:
+                with timeout(self._request_timeout):
+                    response = await self._session.request(  # type: ignore
+                        method=method,
+                        url=self._base_api_url + path,
+                        params=params_with_api,
+                        json=data,
+                    )
 
-            if response.status == 401:
-                raise IPX800InvalidAuthError()
+                if response.status == 401:
+                    raise IPX800InvalidAuthError()
 
-            if response.status >= 200 and response.status <= 206:
                 content = await response.json()
-                response.close()
-                return content
 
-            content = await response.json()
+                if response.status >= 200 and response.status <= 206:
+                    response.close()
+                    return content
+
+                request_retries -= 1
+                sleep(self._request_retries_delay)
+
             raise IPX800RequestError(
                 "IPX800 API request error %s: %s", response.status, content
             )
