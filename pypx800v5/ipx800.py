@@ -23,8 +23,8 @@ class IPX800:
         api_key: str,
         port: int = 80,
         request_timeout: int = 30,
-        request_retries_count: int = 3,
-        request_retries_delay: float = 0.1,
+        request_retries_count: int = 5,
+        request_retries_delay: float = 0.5,
         session: ClientSession = None,
     ) -> None:
         """Init a IPX800 V5 API."""

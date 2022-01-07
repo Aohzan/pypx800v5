@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+- Increase retries count and delay
+
 ## 0.10.0
 
 - Add request retries
