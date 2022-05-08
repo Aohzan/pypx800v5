@@ -36,7 +36,6 @@ class IPX800:
         self._request_retries_delay = request_retries_delay
         self._base_api_url = f"http://{host}:{port}/api/"
 
-        self._api_version = None
         self._firmware_version = None
         self._mac_address = None
 
@@ -65,11 +64,6 @@ class IPX800:
         if self._session is None:
             self._session = ClientSession()
             self._close_session = True
-
-    @property
-    def api_version(self):
-        """Return the API version."""
-        return self._api_version
 
     @property
     def firmware_version(self):
@@ -167,13 +161,11 @@ class IPX800:
 
     async def get_ipx_info(self) -> dict:
         """Get IPX config."""
-        ipx_infos = await self._request_api("system/ipx/info")
         infos = await self._request_api("system/info")
-        self._api_version = ipx_infos["apiVersion"]
         self._firmware_version = infos["firmwareVersion"]
         self._mac_address = infos["macAdress"]
         self._host_name = infos["hostName"]
-        return ipx_infos
+        return infos
 
     async def global_get(self) -> dict:
         """Get all values from the IPX800 API."""
@@ -269,7 +261,8 @@ class IPX800:
 
     def get_obj_config(self, obj_type: str, obj_number: int) -> dict:
         """Return the extension config."""
-        extensions = [x for x in self.objects_config if x[API_CONFIG_TYPE] == obj_type]
+        extensions = [
+            x for x in self.objects_config if x[API_CONFIG_TYPE] == obj_type]
         return extensions[obj_number - 1][API_CONFIG_PARAMS]
 
     def get_obj_id(self, obj_type: str, obj_number: int) -> str:
@@ -306,7 +299,8 @@ class IPX800:
     async def update_ana(self, id: int, value) -> None:
         """Update an Analog on the IPX."""
         if type(value) not in [int, float]:
-            raise IPX800RequestError("Ana value need to be a int or a float type.")
+            raise IPX800RequestError(
+                "Ana value need to be a int or a float type.")
         await self._request_api(f"core/ana/{id}", method="PUT", data={"value": value})
 
     async def update_str(self, id: int, value: str) -> None:

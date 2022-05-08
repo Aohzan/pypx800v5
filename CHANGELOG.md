@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.0
+
+- Remove api_version property removed in 5.4.3.1 firmware
+
 ## 0.11.0
 
 - Increase retries count and delay
