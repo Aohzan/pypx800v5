@@ -261,8 +261,7 @@ class IPX800:
 
     def get_obj_config(self, obj_type: str, obj_number: int) -> dict:
         """Return the extension config."""
-        extensions = [
-            x for x in self.objects_config if x[API_CONFIG_TYPE] == obj_type]
+        extensions = [x for x in self.objects_config if x[API_CONFIG_TYPE] == obj_type]
         return extensions[obj_number - 1][API_CONFIG_PARAMS]
 
     def get_obj_id(self, obj_type: str, obj_number: int) -> str:
@@ -299,8 +298,7 @@ class IPX800:
     async def update_ana(self, id: int, value) -> None:
         """Update an Analog on the IPX."""
         if type(value) not in [int, float]:
-            raise IPX800RequestError(
-                "Ana value need to be a int or a float type.")
+            raise IPX800RequestError("Ana value need to be a int or a float type.")
         await self._request_api(f"core/ana/{id}", method="PUT", data={"value": value})
 
     async def update_str(self, id: int, value: str) -> None:
