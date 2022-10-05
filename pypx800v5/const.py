@@ -1,3 +1,5 @@
+"""pypx800v5 constants."""
+
 DEFAULT_TRANSITION = 1
 
 IPX = "ipx"
@@ -20,6 +22,7 @@ EXT_X8D = "x8d"
 EXT_X24D = "x24d"
 EXT_X4VR = "x4vr"
 EXT_XPWM = "xpwm"
+EXT_X010V = "x010v"
 
 EXTENSIONS = [
     EXT_XTHL,

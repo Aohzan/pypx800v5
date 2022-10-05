@@ -5,7 +5,10 @@ from .object import Object
 
 
 class Tempo(Object):
+    """Represent an IPX800 tempo object."""
+
     def __init__(self, ipx: IPX800, obj_number: int):
+        """Init the object."""
         super().__init__(ipx, obj_type, obj_number)
         self.io_state_id = self._config["ioOut_id"]
         self.io_enabled_id = self._config["ioEnable_id"]

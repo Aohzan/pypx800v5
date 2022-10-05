@@ -5,7 +5,10 @@ from .ipx800 import IPX800
 
 
 class X4VR(Extension):
+    """Represent a X-4VR cover."""
+
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
+        """Init the extension."""
         super().__init__(ipx, ext_type, ext_number, output_number)
         self._mode = int(self._config["mode"])
 

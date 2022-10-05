@@ -7,6 +7,8 @@ from .ipx800 import IPX800
 
 
 class X4FPMode(Enum):
+    """Preset modes of a X-4FP."""
+
     COMFORT = "Comfort"
     COMFORT_1 = "Comfort_1"
     COMFORT_2 = "Comfort_2"
@@ -16,7 +18,10 @@ class X4FPMode(Enum):
 
 
 class X4FP(Extension):
+    """Represent a X-4FP zone."""
+
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
+        """Init the extension."""
         super().__init__(ipx, ext_type, ext_number, output_number)
         self.io_comfort_id = self._config["ioComfort_id"][output_number - 1]
         self.io_eco_id = self._config["ioEco_id"][output_number - 1]
@@ -36,6 +41,7 @@ class X4FP(Extension):
     async def set_mode(self, mode: X4FPMode) -> None:
         """Set comfort mode."""
         await self._ipx.update_io(
-            self._config[f"io{mode.value}_id"][self._io_number - 1],  # type: ignore
+            # type: ignore
+            self._config[f"io{mode.value}_id"][self._io_number - 1],
             True,
         )

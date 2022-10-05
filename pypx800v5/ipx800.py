@@ -6,12 +6,12 @@ from time import sleep
 from aiohttp import ClientError, ClientSession
 from async_timeout import timeout
 
-from .const import *
-from .exceptions import (
-    IPX800CannotConnectError,
-    IPX800InvalidAuthError,
-    IPX800RequestError,
-)
+from pypx800v5.const import (API_CONFIG_ID, API_CONFIG_NAME, API_CONFIG_PARAMS,
+                             API_CONFIG_TYPE, EXTENSIONS, OBJECT_TEMPO,
+                             OBJECT_TIMER, OBJECTS)
+
+from .exceptions import (IPX800CannotConnectError, IPX800InvalidAuthError,
+                         IPX800RequestError)
 
 
 class IPX800:
@@ -257,7 +257,7 @@ class IPX800:
 
     async def get_ext_states(self, ext_type: str, ext_id: int) -> dict:
         """Return all values of extension."""
-        return await self._request_api(f"core/{ext_type}/{ext_id}")
+        return await self._request_api(f"ebx/{ext_type}/{ext_id}")
 
     def get_obj_config(self, obj_type: str, obj_number: int) -> dict:
         """Return the extension config."""

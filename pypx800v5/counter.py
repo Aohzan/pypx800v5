@@ -5,7 +5,10 @@ from .object import Object
 
 
 class Counter(Object):
+    """Represent an IPX800 counter object."""
+
     def __init__(self, ipx: IPX800, obj_number: int):
+        """Init the object."""
         super().__init__(ipx, obj_type, obj_number)
         self.ana_state_id = self._config["anaOut_id"]
         self.ana_command_id = self._config["anaSetValue_id"]

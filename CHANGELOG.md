@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.13.0
+
+- Add Octo and Open Collector i/o support
+- Add X-010V support
+- Fix `get_ext_states` method (use by X4FP)
+- Lint
+
 ## 0.12.0
 
 - Remove api_version property removed in 5.4.3.1 firmware

@@ -41,10 +41,17 @@ async def main():
         print(await relay.status)
         await relay.on()
 
+        opencoll = IPX800OpenColl(ipx, 1)
+        print(await opencoll.status)
+        await opencoll.on()
+
         input = IPX800DigitalInput(ipx, 2)
         print(await input.status)
 
         input = IPX800AnalogInput(ipx, 1)
+        print(await input.status)
+        
+        input = IPX800OptoInput(ipx, 1)
         print(await input.status)
 
         light = X8R(ipx, 1, 7)
@@ -73,6 +80,11 @@ async def main():
         print(tempo.name)
         print(await tempo.status)
         print(await tempo.time)
+
+        x010v_output = X010V(ipx, 1, 2)
+        print(await x010v_output.status)
+        print(await x010v_output.level)
+        await x010v_output.on()
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()

@@ -4,9 +4,12 @@ from .ipx800 import IPX800
 
 
 class Extension:
+    """Represent a IPX800's base extension."""
+
     def __init__(
         self, ipx: IPX800, ext_type: str, ext_number: int, io_number: int = None
     ):
+        """Init the ipx base extension."""
         self._ipx = ipx
         self._ext_type = ext_type
         self._ext_number = ext_number

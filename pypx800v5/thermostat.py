@@ -5,7 +5,10 @@ from .object import Object
 
 
 class Thermostat(Object):
+    """Represent an IPX800 thermostat object."""
+
     def __init__(self, ipx: IPX800, obj_number: int):
+        """Init the object."""
         super().__init__(ipx, obj_type, obj_number)
         # IO
         self.io_state_id = self._config["ioOutput_id"]

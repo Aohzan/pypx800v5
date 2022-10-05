@@ -9,7 +9,10 @@ VALUE_OFF = 0
 
 
 class XPWM(Extension):
+    """Represent a X-PWM output channel."""
+
     def __init__(self, ipx: IPX800, ext_number: int, output_number: int):
+        """Init the extension."""
         super().__init__(ipx, ext_type, ext_number, output_number)
         self.ana_state_id = self._config["anaCommand_id"][output_number - 1]
         self.ana_command_id = self._config["anaCommand_id"][output_number - 1]

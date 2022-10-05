@@ -8,6 +8,7 @@ class XTHL(Extension):
     """Representing an X-THL extension."""
 
     def __init__(self, ipx: IPX800, ext_number: int):
+        """Init the extension."""
         super().__init__(ipx, ext_type, ext_number)
         self._api_path = f"ebx/xthl/{self._ext_id}"
         self.temp_key = "anaTemp"

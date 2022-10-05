@@ -4,7 +4,10 @@ from .ipx800 import IPX800
 
 
 class Object:
+    """Represent an IPX800 base object."""
+
     def __init__(self, ipx: IPX800, obj_type: str, obj_number: int):
+        """Init the base object."""
         self._ipx = ipx
         self._obj_type = obj_type
         self._obj_number = obj_number
