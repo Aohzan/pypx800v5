@@ -2,11 +2,19 @@
 
 
 from .counter import Counter
-from .exceptions import (IPX800CannotConnectError, IPX800InvalidAuthError,
-                         IPX800RequestError)
+from .exceptions import (
+    IPX800CannotConnectError,
+    IPX800InvalidAuthError,
+    IPX800RequestError,
+)
 from .ipx800 import IPX800
-from .ipx800_io import (IPX800AnalogInput, IPX800DigitalInput, IPX800OpenColl,
-                        IPX800OptoInput, IPX800Relay)
+from .ipx800_io import (
+    IPX800AnalogInput,
+    IPX800DigitalInput,
+    IPX800OpenColl,
+    IPX800OptoInput,
+    IPX800Relay,
+)
 from .tempo import Tempo
 from .thermostat import Thermostat
 from .x4fp import X4FP, X4FPMode
