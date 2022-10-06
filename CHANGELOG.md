@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.1
+
+- Fix constants exports
+
 ## 0.13.0
 
 - Add Octo and Open Collector i/o support
