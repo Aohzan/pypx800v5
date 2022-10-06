@@ -41,7 +41,6 @@ class X4FP(Extension):
     async def set_mode(self, mode: X4FPMode) -> None:
         """Set comfort mode."""
         await self._ipx.update_io(
-            # type: ignore
-            self._config[f"io{mode.value}_id"][self._io_number - 1],
+            self._config[f"io{mode.value}_id"][self._io_number - 1],  # type: ignore
             True,
         )
