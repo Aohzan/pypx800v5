@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.2
+
+- Add dimmer level verification
+
 ## 0.13.1
 
 - Fix constants exports

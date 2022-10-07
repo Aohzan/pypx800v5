@@ -22,7 +22,7 @@ class X010V(Extension):
 
     @property
     async def level(self) -> int:
-        """Return the current output level."""
+        """Return the current output level from 0 to 10."""
         return int(await self._ipx.get_ana(self.ana_level_id))
 
     async def on(self) -> None:
@@ -38,5 +38,7 @@ class X010V(Extension):
         await self._ipx.update_io(self.io_command_id, True, "toggle")
 
     async def set_level(self, level: int) -> None:
-        """Set the output level."""
+        """Set the output level between 0 and 10."""
+        if not 0 <= level <= 10:
+            raise ValueError("Level must be between 0 and 10")
         await self._ipx.update_ana(self.ana_command_id, level)

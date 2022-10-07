@@ -44,4 +44,6 @@ class XPWM(Extension):
 
     async def set_level(self, level: int, transition: int = DEFAULT_TRANSITION) -> None:
         """Turn on a X-PWM on a specific level."""
+        if not 0 <= level <= 100:
+            raise ValueError("Level must be between 0 and 100")
         await self._ipx.update_ana(self.ana_command_id, level)
