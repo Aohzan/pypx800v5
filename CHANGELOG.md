@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.3
+
+- Fix X4FP mode
+
 ## 0.13.2
 
 - Add dimmer level verification

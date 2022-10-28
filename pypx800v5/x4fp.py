@@ -34,7 +34,7 @@ class X4FP(Extension):
         """Return the current mode enabled, you can pass current states if you have them, otherwyse it will request it."""
         states = await self._ipx.get_ext_states(ext_type, self._ext_id)
         for mode in X4FPMode:
-            if states[f"io{mode.value}"][self._io_number - 1] == "on":  # type: ignore
+            if states[f"io{mode.value}"][self._io_number - 1]["on"] is True:  # type: ignore
                 return mode
         return None  # type: ignore
 
