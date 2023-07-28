@@ -6,6 +6,7 @@ from .const import (
     API_CONFIG_NAME,
     API_CONFIG_PARAMS,
     API_CONFIG_TYPE,
+    EXT_X010V,
     EXT_X4FP,
     EXT_X4VR,
     EXT_X8D,

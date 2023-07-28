@@ -27,11 +27,13 @@ EXT_X010V = "x010v"
 EXTENSIONS = [
     EXT_XTHL,
     EXT_X4FP,
+    EXT_X8D,
     EXT_X24D,
     EXT_X4VR,
     EXT_XDIMMER,
     EXT_X8R,
     EXT_XPWM,
+    EXT_X010V,
 ]
 
 # Objects

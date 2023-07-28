@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.4
+
+- Fix missing X8D and X010V in extensions
+
 ## 0.13.3
 
 - Fix X4FP mode
