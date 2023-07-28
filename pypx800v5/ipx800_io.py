@@ -5,7 +5,7 @@ from .ipx800 import IPX800
 class IPX800IO:
     """Represent the IPX800 base io."""
 
-    def __init__(self, ipx: IPX800, io_number: int = None):
+    def __init__(self, ipx: IPX800, io_number: int | None = None):
         """Init the ipx base io."""
         self._ipx = ipx
         self._config = ipx.ipx_config

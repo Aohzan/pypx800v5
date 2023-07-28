@@ -35,7 +35,7 @@ class IPX800:
         request_timeout: int = 30,
         request_retries_count: int = 5,
         request_retries_delay: float = 0.5,
-        session: ClientSession = None,
+        session: ClientSession | None = None,
     ) -> None:
         """Init a IPX800 V5 API."""
         self.host = host
@@ -107,7 +107,11 @@ class IPX800:
         return self._objects_config
 
     async def _request_api(
-        self, path, data: dict = None, params: dict = None, method: str = "GET"
+        self,
+        path,
+        data: dict | None = None,
+        params: dict | None = None,
+        method: str = "GET",
     ) -> dict:
         """Make a request to get the IPX800 JSON API."""
         params_with_api = {"ApiKey": self._api_key}

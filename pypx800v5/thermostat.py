@@ -94,13 +94,13 @@ class Thermostat(Object):
 
     async def update_params(
         self,
-        hysteresis: float = None,
-        comfortTemp: float = None,
-        ecoTemp: float = None,
-        noFrostTemp: float = None,
-        faultTime: int = None,
-        invMode: bool = None,
-        safeMode: bool = None,
+        hysteresis: float | None = None,
+        comfortTemp: float | None = None,
+        ecoTemp: float | None = None,
+        noFrostTemp: float | None = None,
+        faultTime: int | None = None,
+        invMode: bool | None = None,
+        safeMode: bool | None = None,
     ) -> None:
         """Update thermostat params."""
         params = {}
