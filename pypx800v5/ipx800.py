@@ -191,7 +191,7 @@ class IPX800:
         self._firmware_version = infos["firmwareVersion"]
         self._mac_address = infos["macAdress"]
         self._host_name = infos["hostName"]
-    
+
     async def update_ipx_config(self) -> None:
         """Update IPX config."""
         self._ipx_config = await self._request_api(
