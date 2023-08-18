@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.14.0
+
+- Change ping method
+
 ## 0.13.5
 
 - Fix CI

@@ -155,14 +155,9 @@ class IPX800:
                 "Error occurred while communicating with the IPX800."
             ) from exception
 
-    async def ping(self) -> bool:
+    async def ping(self) -> None:
         """Return True if the IPX800 answer to API request."""
-        try:
-            result = await self._request_api("system/ipx")
-            return result.get("errorStatus") == 0
-        except IPX800CannotConnectError:
-            pass
-        return False
+        await self._request_api("system/ipx")
 
     async def init_config(self) -> bool:
         """Init the full config of the IPX."""
