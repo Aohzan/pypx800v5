@@ -156,25 +156,20 @@ class IPX800:
             ) from exception
 
     async def ping(self) -> None:
-        """Return True if the IPX800 answer to API request."""
+        """Test a API request to test IPX800 connection."""
         await self._request_api("system/ipx")
 
-    async def init_config(self) -> bool:
+    async def init_config(self) -> None:
         """Init the full config of the IPX."""
         print("Init the IPX800V5 configuration.")
-        await self.get_ipx_info()
-        await self.get_ipx_config()
-        await self.get_extensions_config()
-        await self.get_objects_config()
-        return True
+        await self.update_ipx_info()
+        await self.update_ipx_config()
+        await self.update_extensions_config()
+        await self.update_objects_config()
 
     async def get_ipx_info(self) -> dict:
         """Get IPX config."""
-        infos = await self._request_api("system/info")
-        self._firmware_version = infos["firmwareVersion"]
-        self._mac_address = infos["macAdress"]
-        self._host_name = infos["hostName"]
-        return infos
+        return await self._request_api("system/info")
 
     async def global_get(self) -> dict:
         """Get all values from the IPX800 API."""
@@ -189,14 +184,21 @@ class IPX800:
         except IPX800CannotConnectError:
             print("IPX800V5 rebooted")
 
-    # Get configs from PX API
-    async def get_ipx_config(self) -> None:
-        """Get IPX config."""
+    # Update configs from IPX API
+    async def update_ipx_info(self) -> None:
+        """Update IPX infos."""
+        infos = await self._request_api("system/info")
+        self._firmware_version = infos["firmwareVersion"]
+        self._mac_address = infos["macAdress"]
+        self._host_name = infos["hostName"]
+    
+    async def update_ipx_config(self) -> None:
+        """Update IPX config."""
         self._ipx_config = await self._request_api(
             "system/ipx", params={"option": "filter_id"}
         )
 
-    async def get_extensions_config(self) -> None:
+    async def update_extensions_config(self) -> None:
         """Update the list of connected extensions."""
         extensions_config = []
         for type_extension in EXTENSIONS:
@@ -216,7 +218,7 @@ class IPX800:
                 print("Error to get %s extensions" % type_extension)
         self._extensions_config = extensions_config
 
-    async def get_objects_config(self) -> None:
+    async def update_objects_config(self) -> None:
         """Update the list of configured objects."""
         objects_config = []
         for type_object in OBJECTS:

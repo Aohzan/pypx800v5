@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.15.0
+
+- Rename methods to update config through init
+
 ## 0.14.0
 
 - Change ping method
