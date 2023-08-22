@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0
+
+- Stable release
+- `ext_number` starts now from 0 to match IPX index
+
 ## 0.15.0
 
 - Rename methods to update config through init

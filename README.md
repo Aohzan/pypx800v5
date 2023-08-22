@@ -54,34 +54,34 @@ async def main():
         input = IPX800OptoInput(ipx, 1)
         print(await input.status)
 
-        light = X8R(ipx, 1, 7)
+        light = X8R(ipx, 0, 7)
         print(await light.status)
         await light.on()
 
-        pwm = XPWM(ipx, 1, 6)
+        pwm = XPWM(ipx, 0, 6)
         print(await pwm.status)
         print(await pwm.level)
         await pwm.set_level(90)
 
-        light = XDimmer(ipx, 1, 2)
+        light = XDimmer(ipx, 0, 2)
         print(await light.status)
         print(await light.level)
         await light.on()
 
-        input = X24D(ipx, 1, 14)
+        input = X24D(ipx, 0, 14)
         print(await input.status)
 
-        capteur = XTHL(ipx, 1)
+        capteur = XTHL(ipx, 0)
         print(await capteur.temperature)
         print(await capteur.humidity)
         print(await capteur.luminosity)
 
-        tempo = Tempo(ipx, 1)
+        tempo = Tempo(ipx, 0)
         print(tempo.name)
         print(await tempo.status)
         print(await tempo.time)
 
-        x010v_output = X010V(ipx, 1, 2)
+        x010v_output = X010V(ipx, 0, 2)
         print(await x010v_output.status)
         print(await x010v_output.level)
         await x010v_output.on()
