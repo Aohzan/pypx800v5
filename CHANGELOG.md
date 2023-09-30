@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+- Add X-Display support
+- bump async_timeout
+
 ## 1.0.0
 
 - Stable release

@@ -13,6 +13,7 @@ from .const import (
     EXT_X010V,
     EXT_X24D,
     EXT_XDIMMER,
+    EXT_XDISPLAY,
     EXT_XPWM,
     EXT_XTHL,
     EXTENSIONS,
@@ -50,6 +51,7 @@ from .x8r import X8R
 from .x010v import X010V
 from .x24d import X24D
 from .xdimmer import XDimmer
+from .xdisplay import XDisplay
 from .xpwm import XPWM
 from .xthl import XTHL
 
@@ -75,6 +77,7 @@ __all__ = [
     "X8R",
     "X24D",
     "XDimmer",
+    "XDisplay",
     "XPWM",
     "XTHL",
     "EXTENSIONS",
@@ -85,6 +88,7 @@ __all__ = [
     "EXT_X8D",
     "EXT_X8R",
     "EXT_XDIMMER",
+    "EXT_XDISPLAY",
     "EXT_XPWM",
     "EXT_XTHL",
     "OBJECTS",

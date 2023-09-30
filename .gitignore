@@ -6,3 +6,4 @@ publish
 .vscode/
 test.py
 *.json
+venv

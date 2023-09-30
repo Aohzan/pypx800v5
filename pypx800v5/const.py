@@ -23,6 +23,7 @@ EXT_X24D = "x24d"
 EXT_X4VR = "x4vr"
 EXT_XPWM = "xpwm"
 EXT_X010V = "x010v"
+EXT_XDISPLAY = "xdisplay"
 
 EXTENSIONS = [
     EXT_XTHL,
@@ -34,6 +35,7 @@ EXTENSIONS = [
     EXT_X8R,
     EXT_XPWM,
     EXT_X010V,
+    EXT_XDISPLAY,
 ]
 
 # Objects

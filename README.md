@@ -13,6 +13,7 @@ Control the IPX800 V5, its extensions and objects:
 - X-THL
 - X-4VR
 - X-4FP
+- X-Display (v1 and v2)
 
 ## IPX800 parameters
 
@@ -34,24 +35,24 @@ from pypx800v5 import *
 
 async def main():
     async with IPX800(host='192.168.1.123', api_key='xxx') as ipx:
-        print("Ping OK" if await ipx.ping() else "Ping KO")
+        await ipx.ping()
         await ipx.init_config()
 
-        relay = IPX800Relay(ipx, 1)
+        relay = IPX800Relay(ipx, 0)
         print(await relay.status)
         await relay.on()
 
-        opencoll = IPX800OpenColl(ipx, 1)
+        opencoll = IPX800OpenColl(ipx, 0)
         print(await opencoll.status)
         await opencoll.on()
 
         input = IPX800DigitalInput(ipx, 2)
         print(await input.status)
 
-        input = IPX800AnalogInput(ipx, 1)
+        input = IPX800AnalogInput(ipx, 0)
         print(await input.status)
         
-        input = IPX800OptoInput(ipx, 1)
+        input = IPX800OptoInput(ipx, 0)
         print(await input.status)
 
         light = X8R(ipx, 0, 7)
@@ -85,6 +86,16 @@ async def main():
         print(await x010v_output.status)
         print(await x010v_output.level)
         await x010v_output.on()
+
+        xdisplay = XDisplay(ipx, 0)
+        await xdisplay.refresh_screens()
+        for screen in xdisplay.screens:
+            print(f"{screen.id} - {screen.name} - {screen.type}")
+        print(f"screen status ? {await xdisplay.screen_status}")
+        print(f"screen locked ? {await xdisplay.screen_lock_status}")
+        print(f"current screen ? {await xdisplay.current_screen_id}")
+        await xdisplay.set_screen(0)
+        print(f"current screen ? {await xdisplay.current_screen_id}")
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
