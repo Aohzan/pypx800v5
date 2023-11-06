@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Fix X-010V level
+
 ## 1.1.0
 
 - Add X-Display support
