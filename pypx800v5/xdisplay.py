@@ -18,6 +18,9 @@ class XDisplayScreenType(Enum):
     Temperature = 7
     Humidity = 8
     Luminosity = 9
+    FourButtons = 10
+    Slider = 11
+    Player = 12
 
 
 class XDisplayScreen:

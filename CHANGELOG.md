@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- Add XDisplay V2 new type of screens: slider, player and four buttons
+
 ## 1.1.1
 
 - Fix X-010V level
