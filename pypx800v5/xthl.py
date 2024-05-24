@@ -1,4 +1,5 @@
 """IPX800V5 X-THL."""
+
 from .const import EXT_XTHL as ext_type
 from .extension import Extension
 from .ipx800 import IPX800

@@ -1,4 +1,5 @@
 """IPX800V5 X-Dimmer."""
+
 from .const import DEFAULT_TRANSITION
 from .const import EXT_XDIMMER as ext_type
 from .extension import Extension

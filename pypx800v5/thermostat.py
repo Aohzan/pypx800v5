@@ -1,4 +1,5 @@
 """IPX800V5 Thermostat."""
+
 from .const import OBJECT_THERMOSTAT as obj_type
 from .ipx800 import IPX800
 from .object import Object

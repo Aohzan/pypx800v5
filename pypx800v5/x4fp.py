@@ -1,4 +1,5 @@
 """IPX800V5 X-4FP."""
+
 from enum import Enum
 
 from .const import EXT_X4FP as ext_type

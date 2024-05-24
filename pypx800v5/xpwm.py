@@ -1,4 +1,5 @@
 """IPX800V5 X-PWM."""
+
 from .const import DEFAULT_TRANSITION
 from .const import EXT_XPWM as ext_type
 from .extension import Extension

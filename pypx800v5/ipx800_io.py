@@ -1,4 +1,5 @@
 """IPX800V5 control."""
+
 from .ipx800 import IPX800
 
 

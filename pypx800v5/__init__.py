@@ -1,6 +1,5 @@
 """Asynchronous Python client for the IPX800 v5 API."""
 
-
 from .const import (
     API_CONFIG_ID,
     API_CONFIG_NAME,

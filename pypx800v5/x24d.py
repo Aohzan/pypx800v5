@@ -1,4 +1,5 @@
 """X24D."""
+
 from .const import EXT_X24D as ext_type
 from .extension import Extension
 from .ipx800 import IPX800

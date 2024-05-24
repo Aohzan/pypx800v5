@@ -1,4 +1,5 @@
 """IPX800V5 Tempo."""
+
 from .const import OBJECT_TEMPO as obj_type
 from .ipx800 import IPX800
 from .object import Object

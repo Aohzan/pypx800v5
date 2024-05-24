@@ -1,4 +1,5 @@
 """IPX800V5 X-Display."""
+
 from enum import Enum
 
 from .const import EXT_XDISPLAY as ext_type

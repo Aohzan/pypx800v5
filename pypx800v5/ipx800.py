@@ -1,4 +1,5 @@
 """Get information and control a GCE IPX800v5."""
+
 from asyncio import TimeoutError
 from socket import gaierror
 from time import sleep
