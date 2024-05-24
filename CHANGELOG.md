@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.2
+
+- Lint
+
 ## 1.2.1
 
 - Bump dependencies to fix security issue
