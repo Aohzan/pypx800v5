@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+- Bump dependencies to fix security issue
+
 ## 1.2.0
 
 - Add XDisplay V2 new type of screens: slider, player and four buttons
