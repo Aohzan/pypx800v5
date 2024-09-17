@@ -10,25 +10,27 @@ from .ipx800 import IPX800
 class XDisplayScreenType(Enum):
     """Types of X-Display screen."""
 
-    Thermostat = 1
-    Light = 2
-    Home = 3
-    Cover = 4
-    Date = 5
-    NightLight = 6
-    Temperature = 7
-    Humidity = 8
-    Luminosity = 9
-    FourButtons = 10
-    Slider = 11
-    Player = 12
+    THERMOSTAT = 1
+    BUTTON = 2
+    HOME = 3
+    COVER = 4
+    DATE = 5
+    NIGHT_LIGHT = 6
+    TEMPERATURE = 7
+    HUMIDITY = 8
+    LUMINOSITY = 9
+    FOUR_BUTTONS = 10
+    SLIDER = 11
+    PLAYER = 12
+    ACCESS_CONTROL = 14
+    XPOOL = 15
 
 
 class XDisplayScreen:
     """Represent an X-Display screen."""
 
-    def __init__(self, id: int, id_type: int, name: str):
-        self._id = id
+    def __init__(self, id_screen: int, id_type: int, name: str):
+        self._id = id_screen
         self._id_type = id_type
         self._name = name
 
@@ -76,13 +78,16 @@ class XDisplay(Extension):
 
     # Screens
     async def refresh_screens(self) -> None:
+        """Refresh X-Display screens."""
         screens: list[XDisplayScreen] = []
-        for id in range(len([s for s in self._config["screenRef"] if s != 0])):
+        for screen_id in range(len([s for s in self._config["screenRef"] if s != 0])):
             screens.append(
                 XDisplayScreen(
-                    id=id,
-                    id_type=self._config["screensType"][id],
-                    name=await self._ipx.get_str(self._config["strScreenName_id"][id]),
+                    id_screen=screen_id,
+                    id_type=self._config["screensType"][screen_id],
+                    name=await self._ipx.get_str(
+                        self._config["strScreenName_id"][screen_id]
+                    ),
                 )
             )
         self._screens = screens
@@ -97,11 +102,11 @@ class XDisplay(Extension):
         """Return the current screen reference."""
         return int(await self._ipx.get_ana(self.ana_current_screen_id))
 
-    async def set_screen(self, id: int) -> None:
+    async def set_screen(self, screen_id: int) -> None:
         """Set Screen."""
-        if not 0 <= id <= 31:
+        if not 0 <= screen_id <= 31:
             raise ValueError("Screen id must be between 0 and 31")
-        await self._ipx.update_ana(self.ana_current_screen_id, id)
+        await self._ipx.update_ana(self.ana_current_screen_id, screen_id)
 
     # Screen ON/OFF
     @property
