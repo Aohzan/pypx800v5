@@ -17,6 +17,7 @@ from .const import (
     EXT_XTHL,
     EXTENSIONS,
     IPX,
+    OBJECT_ACCESS_CONTROL,
     OBJECT_COUNTER,
     OBJECT_PUSH,
     OBJECT_TEMPO,
@@ -27,6 +28,7 @@ from .const import (
     TYPE_IO,
     TYPE_STR,
 )
+from .access_control import AccessControl
 from .counter import Counter
 from .exceptions import (
     IPX800CannotConnectError,
@@ -65,6 +67,7 @@ __all__ = [
     "IPX800Relay",
     "IPX800OpenColl",
     "IPX",
+    "AccessControl",
     "Counter",
     "Tempo",
     "Thermostat",
@@ -91,6 +94,7 @@ __all__ = [
     "EXT_XPWM",
     "EXT_XTHL",
     "OBJECTS",
+    "OBJECT_ACCESS_CONTROL",
     "OBJECT_COUNTER",
     "OBJECT_PUSH",
     "OBJECT_TEMPO",

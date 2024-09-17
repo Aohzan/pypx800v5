@@ -1,9 +1,7 @@
 dist/
 build/
+*_cache/
 *.egg-info
 __pycache__
 publish
-.vscode/
-test.py
-*.json
-venv
+.venv

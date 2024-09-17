@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0
+
+- Add XDisplay V2 screens
+- Add Access Control support
+
 ## 1.2.2
 
 - Lint
