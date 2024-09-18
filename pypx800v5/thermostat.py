@@ -24,6 +24,7 @@ class Thermostat(Object):
         self.io_nofrost_id = self._config["ioNoFrost_id"]
 
         self._hysteresis = self._config["hysteresis"]
+        self.init_config = self._config
 
     @property
     async def current_temperature(self) -> float:

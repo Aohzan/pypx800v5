@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Add init_config to Thermostat
+
 ## 1.3.0
 
 - Add XDisplay V2 screens
