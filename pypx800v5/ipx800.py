@@ -1,8 +1,8 @@
 """Get information and control a GCE IPX800v5."""
 
-from asyncio import TimeoutError
+import asyncio
+import logging
 from socket import gaierror
-from time import sleep
 
 from aiohttp import ClientError, ClientSession
 from async_timeout import timeout
@@ -23,6 +23,8 @@ from .exceptions import (
     IPX800InvalidAuthError,
     IPX800RequestError,
 )
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class IPX800:
@@ -49,6 +51,7 @@ class IPX800:
 
         self._firmware_version = None
         self._mac_address = None
+        self._host_name = None
 
         self.io_acpower_id = "ioDetectionAC_id"
         self.ana_ipx_charge_period_id = "anaIPXChargePeriod_id"
@@ -141,10 +144,10 @@ class IPX800:
                     return content
 
                 request_retries -= 1
-                sleep(self._request_retries_delay)
+                await asyncio.sleep(self._request_retries_delay)
 
             raise IPX800RequestError(
-                "IPX800 API request error %s: %s", response.status, content
+                f"IPX800 API request error {response.status}: {content}"
             )
 
         except TimeoutError as exception:
@@ -162,7 +165,7 @@ class IPX800:
 
     async def init_config(self) -> None:
         """Init the full config of the IPX."""
-        print("Init the IPX800V5 configuration.")
+        _LOGGER.info("Init the IPX800V5 configuration.")
         await self.update_ipx_info()
         await self.update_ipx_config()
         await self.update_extensions_config()
@@ -183,7 +186,7 @@ class IPX800:
         try:
             await self.update_io(self.ipx_config["ioIPXReset_id"], True)
         except IPX800CannotConnectError:
-            print("IPX800V5 rebooted")
+            _LOGGER.warning("IPX800V5 rebooted")
 
     # Update configs from IPX API
     async def update_ipx_info(self) -> None:
@@ -216,7 +219,7 @@ class IPX800:
                         }
                     )
             except IPX800RequestError:
-                print("Error to get %s extensions" % type_extension)
+                _LOGGER.error("Error to get %s extensions", type_extension)
         self._extensions_config = extensions_config
 
     async def update_objects_config(self) -> None:
@@ -242,7 +245,7 @@ class IPX800:
                         }
                     )
             except IPX800RequestError:
-                print("Error to get %s object" % type_object)
+                _LOGGER.error("Error to get %s object", type_object)
         self._objects_config = objects_config
 
     # Get ext or obj configs
@@ -288,34 +291,34 @@ class IPX800:
 
     # Get/Update commands
 
-    async def get_io(self, id: int) -> bool:
+    async def get_io(self, io_id: int) -> bool:
         """Get IO status on the IPX."""
-        response = await self._request_api(f"core/io/{id}")
+        response = await self._request_api(f"core/io/{io_id}")
         return response["on"]
 
-    async def get_ana(self, id: int) -> float:
+    async def get_ana(self, ana_id: int) -> float:
         """Get an Analog status on the IPX."""
-        response = await self._request_api(f"core/ana/{id}")
+        response = await self._request_api(f"core/ana/{ana_id}")
         return response["value"]
 
-    async def get_str(self, id: int) -> str:
+    async def get_str(self, str_id: int) -> str:
         """Get an strint value on the IPX."""
-        response = await self._request_api(f"core/str/{id}")
+        response = await self._request_api(f"core/str/{str_id}")
         return response["value"]
 
-    async def update_io(self, id: int, value: bool, command: str = "on") -> None:
+    async def update_io(self, io_id: int, value: bool, command: str = "on") -> None:
         """Update an IO on the IPX."""
-        await self._request_api(f"core/io/{id}", method="PUT", data={command: value})
+        await self._request_api(f"core/io/{io_id}", method="PUT", data={command: value})
 
-    async def update_ana(self, id: int, value) -> None:
+    async def update_ana(self, ana_id: int, value) -> None:
         """Update an Analog on the IPX."""
         if type(value) not in [int, float]:
             raise IPX800RequestError("Ana value need to be a int or a float type.")
-        await self._request_api(f"core/ana/{id}", method="PUT", data={"value": value})
+        await self._request_api(f"core/ana/{ana_id}", method="PUT", data={"value": value})
 
-    async def update_str(self, id: int, value: str) -> None:
+    async def update_str(self, str_id: int, value: str) -> None:
         """Update a string on the IPX."""
-        await self._request_api(f"core/str/{id}", method="PUT", data={"value": value})
+        await self._request_api(f"core/str/{str_id}", method="PUT", data={"value": value})
 
     # Create resource
     async def create_object(self, obj_type: str, params: dict, auth_token: str) -> dict:

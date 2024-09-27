@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.2
+
+- Add LOGGER to get proper logs
+- Fix sleep error in API call when retrying a request
+
 ## 1.3.1
 
 - Add init_config to Thermostat
