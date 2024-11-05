@@ -7,22 +7,12 @@ from socket import gaierror
 from aiohttp import ClientError, ClientSession
 from async_timeout import timeout
 
-from pypx800v5.const import (
-    API_CONFIG_ID,
-    API_CONFIG_NAME,
-    API_CONFIG_PARAMS,
-    API_CONFIG_TYPE,
-    EXTENSIONS,
-    OBJECT_TEMPO,
-    OBJECT_TIMER,
-    OBJECTS,
-)
+from pypx800v5.const import (API_CONFIG_ID, API_CONFIG_NAME, API_CONFIG_PARAMS,
+                             API_CONFIG_TYPE, EXTENSIONS, OBJECT_TEMPO,
+                             OBJECT_TIMER, OBJECTS)
 
-from .exceptions import (
-    IPX800CannotConnectError,
-    IPX800InvalidAuthError,
-    IPX800RequestError,
-)
+from .exceptions import (IPX800CannotConnectError, IPX800InvalidAuthError,
+                         IPX800RequestError)
 
 _LOGGER = logging.getLogger(__name__)
 

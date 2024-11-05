@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.4
+
+- Bump requirements to fix security issue
+
 ## 1.3.3
 
 - Fix context error with request timeout
