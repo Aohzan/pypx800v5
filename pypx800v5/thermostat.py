@@ -120,7 +120,7 @@ class Thermostat(Object):
             params["invMode"] = invMode
         if safeMode:
             params["safeMode"] = safeMode
-        await self._ipx._request_api(
+        await self._ipx.request_api(
             f"object/thermostat/{self._obj_id}",
             method="PUT",
             data=params,

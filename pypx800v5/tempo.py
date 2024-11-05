@@ -41,7 +41,7 @@ class Tempo(Object):
     async def set_time(self, time: int) -> None:
         """Update tempo time."""
         params = {"anaTime1": time}
-        await self._ipx._request_api(
+        await self._ipx.request_api(
             f"object/timer/{self._obj_id}",
             method="PUT",
             data=params,

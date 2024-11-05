@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.3
+
+- Fix context error with request timeout
+
 ## 1.3.2
 
 - Add LOGGER to get proper logs

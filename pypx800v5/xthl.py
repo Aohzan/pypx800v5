@@ -22,17 +22,17 @@ class XTHL(Extension):
     @property
     async def temperature(self) -> float:
         """Get temperature of the X-THL."""
-        response = await self._ipx._request_api(self._api_path)
+        response = await self._ipx.request_api(self._api_path)
         return float(response[self.temp_key])
 
     @property
     async def humidity(self) -> float:
         """Get humidity level of the X-THL."""
-        response = await self._ipx._request_api(self._api_path)
+        response = await self._ipx.request_api(self._api_path)
         return float(response[self.hum_key])
 
     @property
     async def luminosity(self) -> int:
         """Get luminosity level of the X-THL."""
-        response = await self._ipx._request_api(self._api_path)
+        response = await self._ipx.request_api(self._api_path)
         return int(response[self.lum_key])

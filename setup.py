@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pypx800v5",
-    version="1.3.2",
+    version="1.3.3",
     author="Aohzan",
     author_email="aohzan@gmail.com",
     description="Control the IPX800V5 and its extensions.",
@@ -18,5 +18,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.8",
+    python_requires=">=3.11",
 )

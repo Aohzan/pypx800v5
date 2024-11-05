@@ -92,7 +92,7 @@ class IPX800:
     @property
     async def ac_power(self) -> bool:
         """Return if AC Power detected on the X-PSU, None if no X-PSU connected."""
-        response = await self._request_api("system/ipx")
+        response = await self.request_api("system/ipx")
         return response.get(self.io_acpower_id) is True
 
     @property
@@ -110,7 +110,7 @@ class IPX800:
         """Get the config of connected extensions."""
         return self._objects_config
 
-    async def _request_api(
+    async def request_api(
         self,
         path,
         data: dict | None = None,
@@ -126,7 +126,7 @@ class IPX800:
             request_retries = self._request_retries_count
             content = None
             while request_retries > 0:
-                with timeout(self._request_timeout):
+                async with timeout(self._request_timeout):
                     response = await self._session.request(  # type: ignore
                         method=method,
                         url=self._base_api_url + path,
@@ -161,7 +161,7 @@ class IPX800:
 
     async def ping(self) -> None:
         """Test a API request to test IPX800 connection."""
-        await self._request_api("system/ipx")
+        await self.request_api("system/ipx")
 
     async def init_config(self) -> None:
         """Init the full config of the IPX."""
@@ -173,12 +173,12 @@ class IPX800:
 
     async def get_ipx_info(self) -> dict:
         """Get IPX config."""
-        return await self._request_api("system/info")
+        return await self.request_api("system/info")
 
     async def global_get(self) -> dict:
         """Get all values from the IPX800 API."""
-        values = {x["_id"]: x for x in await self._request_api("core/io")}
-        values.update({x["_id"]: x for x in await self._request_api("core/ana")})
+        values = {x["_id"]: x for x in await self.request_api("core/io")}
+        values.update({x["_id"]: x for x in await self.request_api("core/ana")})
         return values
 
     async def reboot(self) -> None:
@@ -191,14 +191,14 @@ class IPX800:
     # Update configs from IPX API
     async def update_ipx_info(self) -> None:
         """Update IPX infos."""
-        infos = await self._request_api("system/info")
+        infos = await self.request_api("system/info")
         self._firmware_version = infos["firmwareVersion"]
         self._mac_address = infos["macAdress"]
         self._host_name = infos["hostName"]
 
     async def update_ipx_config(self) -> None:
         """Update IPX config."""
-        self._ipx_config = await self._request_api(
+        self._ipx_config = await self.request_api(
             "system/ipx", params={"option": "filter_id"}
         )
 
@@ -207,7 +207,7 @@ class IPX800:
         extensions_config = []
         for type_extension in EXTENSIONS:
             try:
-                for extension in await self._request_api(
+                for extension in await self.request_api(
                     f"ebx/{type_extension}", params={"option": "filter_id"}
                 ):
                     extensions_config.append(
@@ -230,7 +230,7 @@ class IPX800:
                 OBJECT_TIMER if type_object in [OBJECT_TEMPO] else type_object
             )
             try:
-                for obj in await self._request_api(
+                for obj in await self.request_api(
                     f"object/{search_object}", params={"option": "filter_id"}
                 ):
                     # ignore objects with same parent object
@@ -272,7 +272,7 @@ class IPX800:
 
     async def get_ext_states(self, ext_type: str, ext_id: int) -> dict:
         """Return all values of extension."""
-        return await self._request_api(f"ebx/{ext_type}/{ext_id}")
+        return await self.request_api(f"ebx/{ext_type}/{ext_id}")
 
     def get_obj_config(self, obj_type: str, obj_number: int) -> dict:
         """Return the extension config."""
@@ -293,40 +293,44 @@ class IPX800:
 
     async def get_io(self, io_id: int) -> bool:
         """Get IO status on the IPX."""
-        response = await self._request_api(f"core/io/{io_id}")
+        response = await self.request_api(f"core/io/{io_id}")
         return response["on"]
 
     async def get_ana(self, ana_id: int) -> float:
         """Get an Analog status on the IPX."""
-        response = await self._request_api(f"core/ana/{ana_id}")
+        response = await self.request_api(f"core/ana/{ana_id}")
         return response["value"]
 
     async def get_str(self, str_id: int) -> str:
         """Get an strint value on the IPX."""
-        response = await self._request_api(f"core/str/{str_id}")
+        response = await self.request_api(f"core/str/{str_id}")
         return response["value"]
 
     async def update_io(self, io_id: int, value: bool, command: str = "on") -> None:
         """Update an IO on the IPX."""
-        await self._request_api(f"core/io/{io_id}", method="PUT", data={command: value})
+        await self.request_api(f"core/io/{io_id}", method="PUT", data={command: value})
 
     async def update_ana(self, ana_id: int, value) -> None:
         """Update an Analog on the IPX."""
         if type(value) not in [int, float]:
             raise IPX800RequestError("Ana value need to be a int or a float type.")
-        await self._request_api(f"core/ana/{ana_id}", method="PUT", data={"value": value})
+        await self.request_api(
+            f"core/ana/{ana_id}", method="PUT", data={"value": value}
+        )
 
     async def update_str(self, str_id: int, value: str) -> None:
         """Update a string on the IPX."""
-        await self._request_api(f"core/str/{str_id}", method="PUT", data={"value": value})
+        await self.request_api(
+            f"core/str/{str_id}", method="PUT", data={"value": value}
+        )
 
     # Create resource
     async def create_object(self, obj_type: str, params: dict, auth_token: str) -> dict:
         """Create a resource and update configuration from params."""
-        new_object = await self._request_api(
+        new_object = await self.request_api(
             f"object/{obj_type}", method="POST", params={"AuthToken": auth_token}
         )
-        return await self._request_api(
+        return await self.request_api(
             f"object/{obj_type}/{new_object['_id']}",
             method="PUT",
             params={"AuthToken": auth_token},
