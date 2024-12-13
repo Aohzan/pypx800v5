@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+- Fix X-Display V2 screens id
+
 ## 1.4.0
 
 - Add X-Display V2 new type of screens: weather, consumption, energy

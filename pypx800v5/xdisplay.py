@@ -89,7 +89,7 @@ class XDisplay(Extension):
         for idx, _ in enumerate(range(len([s for s in self._config["screensType"] if s != 0]))):
             screens.append(
                 XDisplayScreen(
-                    id_screen=self._config["screenRef"][idx],
+                    id_screen=idx,
                     id_type=self._config["screensType"][idx],
                     name=await self._ipx.get_str(
                         self._config["strScreenName_id"][idx]
