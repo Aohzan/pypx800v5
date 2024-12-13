@@ -21,12 +21,13 @@ async def main():
         print(f"current screen ? {await xdisplay.current_screen_id}")
         await xdisplay.set_screen(0)
         print(f"current screen ? {await xdisplay.current_screen_id}")
+        await xdisplay.set_screen(5)
 
-        access_control = AccessControl(ipx, 0)
-        print(await access_control.success)
-        print(await access_control.fault)
-        print("Last code: ", await access_control.last_code)
-        print("Codes: ", await access_control.codes)
+        # access_control = AccessControl(ipx, 0)
+        # print(await access_control.success)
+        # print(await access_control.fault)
+        # print("Last code: ", await access_control.last_code)
+        # print("Codes: ", await access_control.codes)
 
         # relay = IPX800Relay(ipx, 0)
         # print(await relay.status)

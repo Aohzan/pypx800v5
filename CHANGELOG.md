@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0
+
+- Add X-Display V2 new type of screens: weather, consumption, energy
+- Fix X-Display V2 unknown screens
+
 ## 1.3.4
 
 - Bump requirements to fix security issue

@@ -24,6 +24,9 @@ class XDisplayScreenType(Enum):
     PLAYER = 12
     ACCESS_CONTROL = 14
     XPOOL = 15
+    WEATHER = 16
+    CONSUMPTION = 17
+    ENERGY = 18
 
 
 class XDisplayScreen:
@@ -36,7 +39,7 @@ class XDisplayScreen:
 
     @property
     def id(self) -> int:
-        """Return the name of a X-Display screen."""
+        """Return the id of a X-Display screen."""
         return self._id
 
     @property
@@ -46,8 +49,11 @@ class XDisplayScreen:
 
     @property
     def type(self) -> str:
-        """Return the name of a X-Display screen."""
-        return XDisplayScreenType(self._id_type).name
+        """Return the type of a X-Display screen."""
+        try:
+            return XDisplayScreenType(self._id_type).name
+        except ValueError:
+            return "Unknown"
 
 
 class XDisplay(Extension):
@@ -80,13 +86,13 @@ class XDisplay(Extension):
     async def refresh_screens(self) -> None:
         """Refresh X-Display screens."""
         screens: list[XDisplayScreen] = []
-        for screen_id in range(len([s for s in self._config["screenRef"] if s != 0])):
+        for idx, _ in enumerate(range(len([s for s in self._config["screensType"] if s != 0]))):
             screens.append(
                 XDisplayScreen(
-                    id_screen=screen_id,
-                    id_type=self._config["screensType"][screen_id],
+                    id_screen=self._config["screenRef"][idx],
+                    id_type=self._config["screensType"][idx],
                     name=await self._ipx.get_str(
-                        self._config["strScreenName_id"][screen_id]
+                        self._config["strScreenName_id"][idx]
                     ),
                 )
             )
