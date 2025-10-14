@@ -34,6 +34,7 @@ class XDimmer(Extension):
     async def off(self, transition: int = DEFAULT_TRANSITION) -> None:
         """Turn off a X-Dimmer."""
         await self._ipx.update_io(self.io_command_id, False)
+        await self._ipx.update_ana(self.ana_command_id, 0)
 
     async def toggle(self, transition: int = DEFAULT_TRANSITION) -> None:
         """Toggle a X-Dimmer."""
