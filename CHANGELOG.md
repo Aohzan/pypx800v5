@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.2
+
+- Fix X-Dimmer off method
+- Fix X4VR close method
+- Fix X-010V off method
+
 ## 1.4.1
 
 - Fix X-Display V2 screens id
