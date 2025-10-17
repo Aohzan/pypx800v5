@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3
+
+- Revert 1.4.2 changes
+
 ## 1.4.2
 
 - Fix X-Dimmer off method

@@ -45,7 +45,6 @@ class X4VR(Extension):
     async def close(self) -> None:
         """Close cover."""
         await self._ipx.update_io(self.io_command_down_id, True)
-        await self._ipx.update_ana(self.ana_command_id, 0)
 
     async def stop(self) -> None:
         """Stop cover."""

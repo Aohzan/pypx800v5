@@ -33,7 +33,6 @@ class X010V(Extension):
     async def off(self) -> None:
         """Turn off the ouput."""
         await self._ipx.update_io(self.io_command_id, False)
-        await self._ipx.update_ana(self.ana_command_id, 0)
 
     async def toggle(self) -> None:
         """Toggle the ouput."""
