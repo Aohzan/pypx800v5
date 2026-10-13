@@ -1,15 +1,6 @@
 # Changelog
 
-## 1.5.0
-
-- Add X-400 CT and X-400 Ana extensions (through a X-Bridge)
-- Add thermostat inverted mode, and keep thermostat parameters up to date after update_params
-
-## 1.4.4
-
-- Fix X-PWM toggle always turning the output off
-- Fix thermostat update_params ignoring 0 and False values
-- Use asyncio.timeout instead of the undeclared async_timeout dependency
+<!-- version list -->
 
 ## 1.4.3
 
