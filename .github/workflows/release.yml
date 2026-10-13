@@ -20,11 +20,10 @@ jobs:
       released: ${{ steps.release.outputs.released }}
       tag: ${{ steps.release.outputs.tag }}
 
+    # Pushes the release commit and tag, and creates the GitHub release.
+    # Only the deploy job publishes to PyPI, so only it gets an OIDC token.
     permissions:
       contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
 
     steps:
       - name: Setup | Checkout Repository on Release Branch
