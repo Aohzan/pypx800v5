@@ -12,6 +12,7 @@ from .const import (
     EXT_X8R,
     EXT_X010V,
     EXT_X24D,
+    EXT_X400,
     EXT_XDIMMER,
     EXT_XDISPLAY,
     EXT_XPWM,
@@ -28,6 +29,8 @@ from .const import (
     TYPE_ANA,
     TYPE_IO,
     TYPE_STR,
+    X400_FUNC_ANA,
+    X400_FUNC_CT,
 )
 from .counter import Counter
 from .exceptions import (
@@ -51,6 +54,7 @@ from .x8d import X8D
 from .x8r import X8R
 from .x010v import X010V
 from .x24d import X24D
+from .x400 import X400
 from .xdimmer import XDimmer
 from .xdisplay import XDisplay
 from .xpwm import XPWM
@@ -78,6 +82,7 @@ __all__ = [
     "X8D",
     "X8R",
     "X24D",
+    "X400",
     "XDimmer",
     "XDisplay",
     "XPWM",
@@ -86,6 +91,7 @@ __all__ = [
     "EXT_X4VR",
     "EXT_X010V",
     "EXT_X24D",
+    "EXT_X400",
     "EXT_X4FP",
     "EXT_X8D",
     "EXT_X8R",
@@ -103,6 +109,8 @@ __all__ = [
     "TYPE_ANA",
     "TYPE_IO",
     "TYPE_STR",
+    "X400_FUNC_ANA",
+    "X400_FUNC_CT",
     "API_CONFIG_NAME",
     "API_CONFIG_ID",
     "API_CONFIG_PARAMS",

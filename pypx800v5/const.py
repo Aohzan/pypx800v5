@@ -24,6 +24,7 @@ EXT_X4VR = "x4vr"
 EXT_XPWM = "xpwm"
 EXT_X010V = "x010v"
 EXT_XDISPLAY = "xdisplay"
+EXT_X400 = "x400"
 
 EXTENSIONS = [
     EXT_XTHL,
@@ -36,7 +37,12 @@ EXTENSIONS = [
     EXT_XPWM,
     EXT_X010V,
     EXT_XDISPLAY,
+    EXT_X400,
 ]
+
+# X-400 functions
+X400_FUNC_CT = "x400 CT"
+X400_FUNC_ANA = "x400 Ana"
 
 # Objects
 OBJECT_THERMOSTAT = "thermostat"

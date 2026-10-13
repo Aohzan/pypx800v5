@@ -14,6 +14,7 @@ Control the IPX800 V5, its extensions and objects:
 - X-4VR
 - X-4FP
 - X-Display (v1 and v2)
+- X-400 CT and X-400 Ana (through a X-Bridge)
 
 ## IPX800 parameters
 
