@@ -1,6 +1,6 @@
 [project]
 name = "pypx800v5"
-version = "1.4.3"
+version = "1.5.0"
 description = "Control the IPX800V5 and its extensions."
 authors = [{ name = "Aohzan", email = "aohzan@gmail.com" }]
 readme = "README.md"
