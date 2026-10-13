@@ -2,10 +2,10 @@
 
 import asyncio
 import logging
+from asyncio import timeout
 from socket import gaierror
 
 from aiohttp import ClientError, ClientSession
-from async_timeout import timeout
 
 from pypx800v5.const import (
     API_CONFIG_ID,
