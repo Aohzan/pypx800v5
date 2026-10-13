@@ -38,7 +38,7 @@ class XPWM(Extension):
 
     async def toggle(self, transition: int = DEFAULT_TRANSITION) -> None:
         """Toggle a X-PWM."""
-        if self.status:
+        if await self.status:
             await self._ipx.update_ana(self.ana_command_id, VALUE_OFF)
         else:
             await self._ipx.update_ana(self.ana_command_id, VALUE_ON)
