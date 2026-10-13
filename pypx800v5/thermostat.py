@@ -106,19 +106,19 @@ class Thermostat(Object):
     ) -> None:
         """Update thermostat params."""
         params = {}
-        if hysteresis:
+        if hysteresis is not None:
             params["hysteresis"] = hysteresis
-        if comfortTemp:
+        if comfortTemp is not None:
             params["setPointComfort"] = comfortTemp
-        if ecoTemp:
+        if ecoTemp is not None:
             params["setPointEco"] = ecoTemp
-        if noFrostTemp:
+        if noFrostTemp is not None:
             params["setPointNoFrost"] = noFrostTemp
-        if faultTime:
+        if faultTime is not None:
             params["faultTime"] = faultTime
-        if invMode:
+        if invMode is not None:
             params["invMode"] = invMode
-        if safeMode:
+        if safeMode is not None:
             params["safeMode"] = safeMode
         await self._ipx.request_api(
             f"object/thermostat/{self._obj_id}",
