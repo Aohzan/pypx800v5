@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.4
+
+- Fix X-PWM toggle always turning the output off
+- Fix thermostat update_params ignoring 0 and False values
+- Use asyncio.timeout instead of the undeclared async_timeout dependency
+
 ## 1.4.3
 
 - Revert 1.4.2 changes
