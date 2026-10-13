@@ -27,6 +27,11 @@ class Thermostat(Object):
         self.init_config = self._config
 
     @property
+    def inverted_mode(self) -> bool:
+        """Return if the output is inverted, to drive a cooling device."""
+        return self._config.get("invMode") is True
+
+    @property
     async def current_temperature(self) -> float:
         """Return the current thermostat temperature."""
         return await self._ipx.get_ana(self.ana_measure_id)
@@ -125,3 +130,5 @@ class Thermostat(Object):
             method="PUT",
             data=params,
         )
+        # Keep the config shared by the thermostat instances up to date
+        self._config.update(params)
